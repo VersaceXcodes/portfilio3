@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
-import { userSchema } from '@/zodschemas';
-import { z } from 'zod';
+import { userSchema } from '@/types/schema';
 import { Link } from 'react-router-dom';
 
 const UV_ResetPassword: React.FC = () => {
@@ -27,7 +26,7 @@ const UV_ResetPassword: React.FC = () => {
     try {
       const emailValidation = userSchema.pick({ email: true }).parse({ email });
       resetPasswordMutation.mutate(emailValidation.email);
-    } catch (validationError: any) {
+    } catch {
       setNotificationMessage('Please enter a valid email address.');
     }
   };
@@ -72,10 +71,10 @@ const UV_ResetPassword: React.FC = () => {
             <div>
               <button
                 type="submit"
-                className={`group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 ${resetPasswordMutation.isLoading ? 'disabled:opacity-50 disabled:cursor-not-allowed' : ''}`}
-                disabled={resetPasswordMutation.isLoading}
+                className={`group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 ${resetPasswordMutation.isPending ? 'disabled:opacity-50 disabled:cursor-not-allowed' : ''}`}
+                disabled={resetPasswordMutation.isPending}
               >
-                {resetPasswordMutation.isLoading ? (
+                {resetPasswordMutation.isPending ? (
                   <span className="flex items-center">
                     <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>

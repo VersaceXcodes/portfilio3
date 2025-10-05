@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useAppStore } from '@/store/main';
 
-import GV_TopNav from '@/components/views/GV_TopNav.tsx';
+
 import GV_Footer from '@/components/views/GV_Footer.tsx';
 import UV_Welcome from '@/components/views/UV_Welcome.tsx';
 import UV_SignUp from '@/components/views/UV_SignUp.tsx';
