@@ -1,0 +1,19 @@
+{
+  "timestamp": 1759699386817,
+  "operation": {
+    "id": "webapp:react:views",
+    "refs": {
+      "id": "GV_TopNav",
+      "version": "1759699363378"
+    }
+  },
+  "projectId": "portfilio3",
+  "files": [
+    {
+      "path": "/mnt/data/portfilio3/vitereact/src/components/views/GV_TopNav.tsx",
+      "type": "text",
+      "size": 2150,
+      "dependencies": false
+    }
+  ]
+}

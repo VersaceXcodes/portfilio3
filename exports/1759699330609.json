@@ -1,0 +1,19 @@
+{
+  "timestamp": 1759699330609,
+  "operation": {
+    "id": "webapp:react:store",
+    "refs": {
+      "id": "redux",
+      "version": "1759699282841"
+    }
+  },
+  "projectId": "portfilio3",
+  "files": [
+    {
+      "path": "/mnt/data/portfilio3/vitereact/src/store/main.tsx",
+      "type": "text",
+      "size": 6187,
+      "dependencies": false
+    }
+  ]
+}

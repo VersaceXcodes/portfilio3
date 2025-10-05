@@ -1,0 +1,19 @@
+{
+  "timestamp": 1759699399242,
+  "operation": {
+    "id": "webapp:react:views",
+    "refs": {
+      "id": "UV_AnalyticsDashboard",
+      "version": "1759699363359"
+    }
+  },
+  "projectId": "portfilio3",
+  "files": [
+    {
+      "path": "/mnt/data/portfilio3/vitereact/src/components/views/UV_AnalyticsDashboard.tsx",
+      "type": "text",
+      "size": 3615,
+      "dependencies": false
+    }
+  ]
+}

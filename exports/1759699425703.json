@@ -1,0 +1,19 @@
+{
+  "timestamp": 1759699425703,
+  "operation": {
+    "id": "webapp:react:views",
+    "refs": {
+      "id": "UV_Login",
+      "version": "1759699414138"
+    }
+  },
+  "projectId": "portfilio3",
+  "files": [
+    {
+      "path": "/mnt/data/portfilio3/vitereact/src/components/views/UV_Login.tsx",
+      "type": "text",
+      "size": 3836,
+      "dependencies": false
+    }
+  ]
+}

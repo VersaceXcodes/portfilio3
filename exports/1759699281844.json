@@ -1,0 +1,21 @@
+{
+  "timestamp": 1759699281844,
+  "operation": {
+    "id": "settings:config:package"
+  },
+  "projectId": "portfilio3",
+  "files": [
+    {
+      "path": "/mnt/data/portfilio3/backend/package.json",
+      "type": "text",
+      "size": 1425,
+      "dependencies": true
+    },
+    {
+      "path": "/mnt/data/portfilio3/backend/.env",
+      "type": "text",
+      "size": 239,
+      "dependencies": false
+    }
+  ]
+}

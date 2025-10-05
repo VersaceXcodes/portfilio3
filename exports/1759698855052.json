@@ -1,0 +1,15 @@
+{
+  "timestamp": 1759698855052,
+  "operation": {
+    "id": "db:schemas:zod"
+  },
+  "projectId": "portfilio3",
+  "files": [
+    {
+      "path": "/mnt/data/portfilio3/backend/schema.ts",
+      "type": "text",
+      "size": 9254,
+      "dependencies": false
+    }
+  ]
+}

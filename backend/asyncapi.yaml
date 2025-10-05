@@ -1,0 +1,179 @@
+asyncapi: 2.0.0
+info:
+  title: Portfolio3 Realtime API
+  version: 1.0.0
+  description: This document describes the realtime features of the Portfolio3
+    application, ensuring communication and synchronization of frontend and
+    backend states.
+servers:
+  production:
+    url: http://localhost:3000
+    protocol: ws
+channels:
+  user/signup:
+    description: Channel for user signup events.
+    subscribe:
+      operationId: onUserSignedUp
+      message:
+        $ref: "#/components/messages/UserSignedUp"
+  user/login:
+    description: Channel for user login events.
+    subscribe:
+      operationId: onUserLoggedIn
+      message:
+        $ref: "#/components/messages/UserLoggedIn"
+  user/logout:
+    description: Channel for user logout events.
+    subscribe:
+      operationId: onUserLoggedOut
+      message:
+        $ref: "#/components/messages/UserLoggedOut"
+  portfolio/update:
+    description: Channel for portfolio updates.
+    subscribe:
+      operationId: onPortfolioUpdated
+      message:
+        $ref: "#/components/messages/PortfolioUpdated"
+  project/add:
+    description: Channel for adding new projects.
+    subscribe:
+      operationId: onProjectAdded
+      message:
+        $ref: "#/components/messages/ProjectAdded"
+  project/update:
+    description: Channel for updating project details.
+    subscribe:
+      operationId: onProjectUpdated
+      message:
+        $ref: "#/components/messages/ProjectUpdated"
+  project/delete:
+    description: Channel for project deletion events.
+    subscribe:
+      operationId: onProjectDeleted
+      message:
+        $ref: "#/components/messages/ProjectDeleted"
+  comment/add:
+    description: Channel for new comments added to projects.
+    subscribe:
+      operationId: onCommentAdded
+      message:
+        $ref: "#/components/messages/CommentAdded"
+  visitor/message:
+    description: Channel for messages sent via the visitor contact form.
+    subscribe:
+      operationId: onVisitorMessage
+      message:
+        $ref: "#/components/messages/VisitorMessageReceived"
+  analytics/update:
+    description: Channel for analytics updates.
+    subscribe:
+      operationId: onAnalyticsUpdated
+      message:
+        $ref: "#/components/messages/AnalyticsUpdated"
+components:
+  messages:
+    UserSignedUp:
+      payload:
+        type: object
+        properties:
+          user_id:
+            type: string
+          email:
+            type: string
+          name:
+            type: string
+            nullable: true
+    UserLoggedIn:
+      payload:
+        type: object
+        properties:
+          user_id:
+            type: string
+          email:
+            type: string
+          auth_token:
+            type: string
+    UserLoggedOut:
+      payload:
+        type: object
+        properties:
+          user_id:
+            type: string
+    PortfolioUpdated:
+      payload:
+        type: object
+        properties:
+          user_id:
+            type: string
+          updated_fields:
+            type: array
+            items:
+              type: string
+    ProjectAdded:
+      payload:
+        type: object
+        properties:
+          project_id:
+            type: string
+          user_id:
+            type: string
+          title:
+            type: string
+    ProjectUpdated:
+      payload:
+        type: object
+        properties:
+          project_id:
+            type: string
+          updated_fields:
+            type: array
+            items:
+              type: string
+    ProjectDeleted:
+      payload:
+        type: object
+        properties:
+          project_id:
+            type: string
+    CommentAdded:
+      payload:
+        type: object
+        properties:
+          comment_id:
+            type: string
+          project_id:
+            type: string
+          user_name:
+            type: string
+            nullable: true
+          content:
+            type: string
+    VisitorMessageReceived:
+      payload:
+        type: object
+        properties:
+          message_id:
+            type: string
+          user_id:
+            type: string
+          visitor_email:
+            type: string
+            nullable: true
+          visitor_message:
+            type: string
+    AnalyticsUpdated:
+      payload:
+        type: object
+        properties:
+          analytics_id:
+            type: string
+          user_id:
+            type: string
+          visit_count:
+            type: integer
+          popular_projects:
+            type: object
+            additionalProperties:
+              type: array
+              items:
+                type: string

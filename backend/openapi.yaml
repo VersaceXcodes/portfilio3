@@ -1,0 +1,883 @@
+openapi: 3.0.0
+info:
+  title: Portfolio3 API
+  description: API Documentation for Portfolio3 Web Application
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000/api
+paths:
+  /auth/register:
+    post:
+      summary: Register a new user
+      operationId: registerUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateUserInput"
+      responses:
+        "200":
+          description: Successful registration
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    $ref: "#/components/schemas/User"
+                  token:
+                    type: string
+  /auth/login:
+    post:
+      summary: Log in a user
+      operationId: loginUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        "200":
+          description: Successful login
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    $ref: "#/components/schemas/User"
+                  token:
+                    type: string
+  /auth/password-reset:
+    post:
+      summary: Reset user password
+      operationId: resetPassword
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+      responses:
+        "200":
+          description: Password reset email sent
+  /users/{user_id}:
+    get:
+      summary: Get user profile
+      operationId: getUserProfile
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: User profile retrieved
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserProfile"
+    patch:
+      summary: Update user profile
+      operationId: updateUserProfile
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateUserProfileInput"
+      responses:
+        "200":
+          description: User profile updated
+  /users/{user_id}/settings:
+    patch:
+      summary: Update user settings
+      operationId: updateUserSettings
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateUserSettingsInput"
+      responses:
+        "200":
+          description: User settings updated
+  /users/{user_id}/projects:
+    get:
+      summary: Get all projects for a user
+      operationId: getUserProjects
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Projects retrieved
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Project"
+    post:
+      summary: Create a new project
+      operationId: createProject
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateProjectInput"
+      responses:
+        "201":
+          description: Project created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Project"
+  /projects/{project_id}:
+    get:
+      summary: Get a specific project
+      operationId: getProject
+      parameters:
+        - name: project_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Project retrieved
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Project"
+    patch:
+      summary: Update a specific project
+      operationId: updateProject
+      parameters:
+        - name: project_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateProjectInput"
+      responses:
+        "200":
+          description: Project updated
+    delete:
+      summary: Delete a specific project
+      operationId: deleteProject
+      parameters:
+        - name: project_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Project deleted
+  /users/{user_id}/skills:
+    get:
+      summary: Get all skills for a user
+      operationId: getUserSkills
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Skills retrieved
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Skill"
+    post:
+      summary: Add a new skill
+      operationId: createSkill
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateSkillInput"
+      responses:
+        "201":
+          description: Skill created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Skill"
+  /skills/{skill_id}:
+    patch:
+      summary: Update specific skill
+      operationId: updateSkill
+      parameters:
+        - name: skill_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateSkillInput"
+      responses:
+        "200":
+          description: Skill updated
+    delete:
+      summary: Delete a specific skill
+      operationId: deleteSkill
+      parameters:
+        - name: skill_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Skill deleted
+  /users/{user_id}/experience:
+    get:
+      summary: Get all experiences for a user
+      operationId: getUserExperience
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Experiences retrieved
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ExperienceTimeline"
+    post:
+      summary: Add a new experience
+      operationId: createExperience
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateExperienceTimelineInput"
+      responses:
+        "201":
+          description: Experience created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ExperienceTimeline"
+  /experience/{experience_id}:
+    patch:
+      summary: Update a specific experience
+      operationId: updateExperience
+      parameters:
+        - name: experience_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateExperienceTimelineInput"
+      responses:
+        "200":
+          description: Experience updated
+    delete:
+      summary: Delete a specific experience
+      operationId: deleteExperience
+      parameters:
+        - name: experience_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Experience deleted
+  /users/{user_id}/testimonials:
+    get:
+      summary: Get all testimonials for a user
+      operationId: getUserTestimonials
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Testimonials retrieved
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Testimonial"
+    post:
+      summary: Add a new testimonial
+      operationId: createTestimonial
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateTestimonialInput"
+      responses:
+        "201":
+          description: Testimonial created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Testimonial"
+  /testimonials/{testimonial_id}:
+    patch:
+      summary: Update a specific testimonial
+      operationId: updateTestimonial
+      parameters:
+        - name: testimonial_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateTestimonialInput"
+      responses:
+        "200":
+          description: Testimonial updated
+    delete:
+      summary: Delete a specific testimonial
+      operationId: deleteTestimonial
+      parameters:
+        - name: testimonial_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Testimonial deleted
+  /users/{user_id}/blog-posts:
+    get:
+      summary: Get all blog posts for a user
+      operationId: getUserBlogPosts
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Blog posts retrieved
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/BlogPost"
+    post:
+      summary: Create a new blog post
+      operationId: createBlogPost
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateBlogPostInput"
+      responses:
+        "201":
+          description: Blog post created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BlogPost"
+  /blog-posts/{post_id}:
+    patch:
+      summary: Update a specific blog post
+      operationId: updateBlogPost
+      parameters:
+        - name: post_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateBlogPostInput"
+      responses:
+        "200":
+          description: Blog post updated
+    delete:
+      summary: Delete a specific blog post
+      operationId: deleteBlogPost
+      parameters:
+        - name: post_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Blog post deleted
+  /projects/{project_id}/comments:
+    get:
+      summary: Get comments for a specific project
+      operationId: getProjectComments
+      parameters:
+        - name: project_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Comments retrieved
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Comment"
+    post:
+      summary: Add a comment to a project
+      operationId: addComment
+      parameters:
+        - name: project_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateCommentInput"
+      responses:
+        "201":
+          description: Comment added
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Comment"
+  /analytics/{user_id}:
+    get:
+      summary: Get analytics data for a user
+      operationId: getAnalytics
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Analytics data retrieved
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Analytics"
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        user_id:
+          type: string
+        email:
+          type: string
+        password_hash:
+          type: string
+        name:
+          type: string
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+    CreateUserInput:
+      type: object
+      properties:
+        email:
+          type: string
+        password_hash:
+          type: string
+        name:
+          type: string
+          nullable: true
+    UpdateUserInput:
+      type: object
+      properties:
+        user_id:
+          type: string
+        email:
+          type: string
+          nullable: true
+        password_hash:
+          type: string
+          nullable: true
+        name:
+          type: string
+          nullable: true
+    UserProfile:
+      type: object
+      properties:
+        user_id:
+          type: string
+        profile_picture_url:
+          type: string
+          nullable: true
+        cover_image_url:
+          type: string
+          nullable: true
+        bio:
+          type: string
+          nullable: true
+        contact_email:
+          type: string
+          nullable: true
+        phone_number:
+          type: string
+          nullable: true
+        social_media_links:
+          type: object
+          additionalProperties:
+            type: string
+          nullable: true
+    UpdateUserProfileInput:
+      type: object
+      properties:
+        user_id:
+          type: string
+        profile_picture_url:
+          type: string
+          nullable: true
+        cover_image_url:
+          type: string
+          nullable: true
+        bio:
+          type: string
+          nullable: true
+        contact_email:
+          type: string
+          nullable: true
+        phone_number:
+          type: string
+          nullable: true
+        social_media_links:
+          type: object
+          additionalProperties:
+            type: string
+          nullable: true
+    CreateUserSettingsInput:
+      type: object
+      properties:
+        user_id:
+          type: string
+        color_scheme:
+          type: object
+          additionalProperties:
+            type: string
+          nullable: true
+        chosen_template:
+          type: string
+          nullable: true
+        font_selection:
+          type: string
+          nullable: true
+    Project:
+      type: object
+      properties:
+        project_id:
+          type: string
+        user_id:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+          nullable: true
+        images:
+          type: array
+          items:
+            type: string
+          nullable: true
+        project_url:
+          type: string
+          nullable: true
+    CreateProjectInput:
+      type: object
+      properties:
+        user_id:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+          nullable: true
+        images:
+          type: array
+          items:
+            type: string
+          nullable: true
+        project_url:
+          type: string
+          nullable: true
+    Skill:
+      type: object
+      properties:
+        skill_id:
+          type: string
+        user_id:
+          type: string
+        skill_name:
+          type: string
+        proficiency_level:
+          type: integer
+          nullable: true
+    CreateSkillInput:
+      type: object
+      properties:
+        user_id:
+          type: string
+        skill_name:
+          type: string
+        proficiency_level:
+          type: integer
+          nullable: true
+    ExperienceTimeline:
+      type: object
+      properties:
+        experience_id:
+          type: string
+        user_id:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+          nullable: true
+        start_date:
+          type: string
+          format: date-time
+        end_date:
+          type: string
+          format: date-time
+          nullable: true
+    CreateExperienceTimelineInput:
+      type: object
+      properties:
+        user_id:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+          nullable: true
+        start_date:
+          type: string
+          format: date-time
+        end_date:
+          type: string
+          format: date-time
+          nullable: true
+    Testimonial:
+      type: object
+      properties:
+        testimonial_id:
+          type: string
+        user_id:
+          type: string
+        client_name:
+          type: string
+        feedback:
+          type: string
+          nullable: true
+    CreateTestimonialInput:
+      type: object
+      properties:
+        user_id:
+          type: string
+        client_name:
+          type: string
+        feedback:
+          type: string
+          nullable: true
+    BlogPost:
+      type: object
+      properties:
+        post_id:
+          type: string
+        user_id:
+          type: string
+        title:
+          type: string
+        content:
+          type: string
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+    CreateBlogPostInput:
+      type: object
+      properties:
+        user_id:
+          type: string
+        title:
+          type: string
+        content:
+          type: string
+          nullable: true
+    Comment:
+      type: object
+      properties:
+        comment_id:
+          type: string
+        project_id:
+          type: string
+        user_name:
+          type: string
+          nullable: true
+        content:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+    CreateCommentInput:
+      type: object
+      properties:
+        project_id:
+          type: string
+        user_name:
+          type: string
+          nullable: true
+        content:
+          type: string
+    VisitorMessage:
+      type: object
+      properties:
+        message_id:
+          type: string
+        user_id:
+          type: string
+        visitor_email:
+          type: string
+          nullable: true
+        visitor_message:
+          type: string
+        sent_at:
+          type: string
+          format: date-time
+    CreateVisitorMessageInput:
+      type: object
+      properties:
+        user_id:
+          type: string
+        visitor_email:
+          type: string
+          nullable: true
+        visitor_message:
+          type: string
+    Analytics:
+      type: object
+      properties:
+        analytics_id:
+          type: string
+        user_id:
+          type: string
+        visit_count:
+          type: integer
+        popular_projects:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+          nullable: true
+        interaction_data:
+          type: object
+          additionalProperties:
+            type: object
+            properties: {}
+          nullable: true

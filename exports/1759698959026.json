@@ -1,0 +1,15 @@
+{
+  "timestamp": 1759698959026,
+  "operation": {
+    "id": "backend:specifications:openapi"
+  },
+  "projectId": "portfilio3",
+  "files": [
+    {
+      "path": "/mnt/data/portfilio3/backend/openapi.yaml",
+      "type": "text",
+      "size": 21550,
+      "dependencies": false
+    }
+  ]
+}

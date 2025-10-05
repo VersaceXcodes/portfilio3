@@ -1,0 +1,19 @@
+{
+  "timestamp": 1759699362631,
+  "operation": {
+    "id": "webapp:react:root",
+    "refs": {
+      "id": "app",
+      "version": "latest"
+    }
+  },
+  "projectId": "portfilio3",
+  "files": [
+    {
+      "path": "/mnt/data/portfilio3/vitereact/src/App.tsx",
+      "type": "text",
+      "size": 3790,
+      "dependencies": false
+    }
+  ]
+}

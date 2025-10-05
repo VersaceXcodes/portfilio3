@@ -1,0 +1,15 @@
+{
+  "timestamp": 1759698880135,
+  "operation": {
+    "id": "backend:specifications:asyncapi"
+  },
+  "projectId": "portfilio3",
+  "files": [
+    {
+      "path": "/mnt/data/portfilio3/backend/asyncapi.yaml",
+      "type": "text",
+      "size": 4537,
+      "dependencies": false
+    }
+  ]
+}

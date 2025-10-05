@@ -1,0 +1,15 @@
+{
+  "timestamp": 1759699263658,
+  "operation": {
+    "id": "backend:server:main"
+  },
+  "projectId": "portfilio3",
+  "files": [
+    {
+      "path": "/mnt/data/portfilio3/backend/server.ts",
+      "type": "text",
+      "size": 42717,
+      "dependencies": false
+    }
+  ]
+}

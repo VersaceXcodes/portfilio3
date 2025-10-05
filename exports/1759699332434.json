@@ -1,0 +1,15 @@
+{
+  "timestamp": 1759699332434,
+  "operation": {
+    "id": "settings:config:package"
+  },
+  "projectId": "portfilio3",
+  "files": [
+    {
+      "path": "/mnt/data/portfilio3/vitereact/package.json",
+      "type": "text",
+      "size": 2980,
+      "dependencies": true
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "timestamp": 1759699392789,
+  "operation": {
+    "id": "webapp:react:views",
+    "refs": {
+      "id": "UV_ProjectDetail",
+      "version": "latest"
+    }
+  },
+  "projectId": "portfilio3",
+  "files": [
+    {
+      "path": "/mnt/data/portfilio3/vitereact/src/components/views/UV_ProjectDetail.tsx",
+      "type": "text",
+      "size": 4776,
+      "dependencies": false
+    }
+  ]
+}

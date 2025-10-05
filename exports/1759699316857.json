@@ -1,0 +1,21 @@
+{
+  "timestamp": 1759699316857,
+  "operation": {
+    "id": "backend:tests:main"
+  },
+  "projectId": "portfilio3",
+  "files": [
+    {
+      "path": "/mnt/data/portfilio3/backend/server.test.ts",
+      "type": "text",
+      "size": 3555,
+      "dependencies": false
+    },
+    {
+      "path": "/mnt/data/portfilio3/backend/jest.config.ts",
+      "type": "text",
+      "size": 154,
+      "dependencies": false
+    }
+  ]
+}

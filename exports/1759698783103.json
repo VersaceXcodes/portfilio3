@@ -1,0 +1,15 @@
+{
+  "timestamp": 1759698783103,
+  "operation": {
+    "id": "db:postgres"
+  },
+  "projectId": "portfilio3",
+  "files": [
+    {
+      "path": "/mnt/data/portfilio3/backend/db.sql",
+      "type": "text",
+      "size": 6728,
+      "dependencies": false
+    }
+  ]
+}
