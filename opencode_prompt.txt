@@ -1,4 +1,4 @@
-VALIDATION FAILURE - Auth E2E Tests (Attempt 71/100)
+VALIDATION FAILURE - Auth E2E Tests (Attempt 72/100)
 
 The project validation failed at the "Auth E2E Tests" step. You need to analyze the error and fix it.
 
@@ -8,11 +8,11 @@ Backend not reachable on http://localhost:3000
 ## Validation Context:
 - Step: Auth E2E Tests
 - Working Directory: /app/vitereact
-- Attempt: 71/100
+- Attempt: 72/100
 - Previous failures for this step: 2
 
 ## Project Memory Summary:
-- Total validation attempts: 18
+- Total validation attempts: 19
 - Common issues encountered: None
 - Known dependencies: @hookform/resolvers, @radix-ui/react-accordion, @radix-ui/react-alert-dialog, @radix-ui/react-aspect-ratio, @radix-ui/react-avatar, @radix-ui/react-checkbox, @radix-ui/react-collapsible, @radix-ui/react-context-menu, @radix-ui/react-dialog, @radix-ui/react-dropdown-menu
 - Missing dependencies: None
@@ -25,9 +25,10 @@ Working Directory: /app/vitereact
 
 PROJECT DIRECTORIES:
 /app
+/app/vitereact
 /app/.git
-/app/.git/branches
 /app/.git/hooks
+/app/.git/branches
 /app/.git/info
 /app/.git/refs
 /app/.git/refs/heads
@@ -36,92 +37,21 @@ PROJECT DIRECTORIES:
 /app/.git/objects
 /app/.git/objects/pack
 /app/.git/objects/info
-/app/.git/objects/b8
-/app/.git/objects/ef
-/app/.git/objects/93
-/app/.git/objects/ec
-/app/.git/objects/41
-/app/.git/objects/08
-/app/.git/objects/fe
-/app/.git/objects/03
+/app/.git/objects/d5
+/app/.git/objects/96
+/app/.git/objects/bc
+/app/.git/objects/30
+/app/.git/objects/7b
+/app/.git/objects/4a
+/app/.git/objects/82
 
 
 KEY PROJECT FILES:
-/app/README.md
-/app/backend/initdb.js
-/app/backend/jest.config.ts
-/app/backend/package-lock.json
-/app/backend/package.json
-/app/backend/schema.ts
-/app/backend/server.test.ts
-/app/backend/server.ts
-/app/backend/tsconfig.json
-/app/exports/1759698783103.json
-/app/exports/1759698855052.json
-/app/exports/1759698880135.json
-/app/exports/1759698959026.json
-/app/exports/1759699263658.json
-/app/exports/1759699281844.json
-/app/exports/1759699316857.json
-/app/exports/1759699318575.json
-/app/exports/1759699330594.json
-/app/exports/1759699330609.json
-/app/exports/1759699332434.json
-/app/exports/1759699362631.json
-/app/exports/1759699362660.json
-/app/exports/1759699385080.json
-/app/exports/1759699385374.json
-/app/exports/1759699386582.json
-/app/exports/1759699386617.json
-/app/exports/1759699386720.json
-/app/exports/1759699386817.json
-/app/exports/1759699387193.json
-/app/exports/1759699387784.json
-/app/exports/1759699387975.json
-/app/exports/1759699392789.json
-/app/exports/1759699392804.json
-/app/exports/1759699394054.json
-/app/exports/1759699395802.json
-/app/exports/1759699395809.json
-/app/exports/1759699397160.json
-/app/exports/1759699398199.json
-/app/exports/1759699398201.json
-/app/exports/1759699399158.json
-/app/exports/1759699399233.json
-/app/exports/1759699399242.json
-/app/exports/1759699400362.json
-/app/exports/1759699401972.json
-/app/exports/1759699401978.json
-/app/exports/1759699405296.json
-/app/exports/1759699405302.json
-/app/exports/1759699406213.json
-/app/exports/1759699411036.json
-/app/exports/1759699411094.json
 
 
-FRONTEND (vitereact) PACKAGE.JSON:
-  Scripts: dev, build, lint, preview
-  Dependencies: 62 packages
-  DevDependencies: 21 packages
-  Key Dependencies: @hookform/resolvers, @radix-ui/react-accordion, @radix-ui/react-alert-dialog, @radix-ui/react-aspect-ratio, @radix-ui/react-avatar, @radix-ui/react-checkbox, @radix-ui/react-collapsible, @radix-ui/react-context-menu, @radix-ui/react-dialog, @radix-ui/react-dropdown-menu
+BACKEND SCHEMA: Not found or not accessible
 
-BACKEND PACKAGE.JSON:
-  Scripts: start, build, dev, test, test:watch, test:coverage
-  Dependencies: 14 packages
-  Key Dependencies: @electric-sql/pglite, @types/bcryptjs, bcryptjs, cors, dotenv, express, jsonwebtoken, morgan, multer, pg
-
-ROOT PACKAGE.JSON:
-  Scripts: dev
-
-BACKEND SCHEMA AVAILABLE:
-  Location: /app/backend/schema.ts
-  Size: 9254 characters
-  Contains Zod schemas for type validation
-
-BACKEND SERVER AVAILABLE:
-  Location: /app/backend/server.ts
-  Size: 43135 characters
-  Contains actual API endpoints and implementations
+BACKEND SERVER: Not found or not accessible
 
 PROTECTED DIRECTORIES (DO NOT MODIFY):
   - /app/vitereact/src/components/ui/** (UI library)
@@ -131,8 +61,8 @@ PROTECTED DIRECTORIES (DO NOT MODIFY):
 
 
 ## Previous Validation Failures for Auth E2E Tests:
-- 6:06:04 PM: 
 - 6:06:31 PM: 
+- 6:06:57 PM: 
 
 ## Your Task:
 1. **Analyze the Error**: Understand what specifically went wrong in the Auth E2E Tests step
