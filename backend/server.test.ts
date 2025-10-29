@@ -1,7 +1,7 @@
 // Import necessary modules and libraries
 import request from 'supertest';
-import { app, pool } from './server.ts';
-import { createUserInputSchema } from './schema.ts';
+import { app, pool } from './server.ts'; // import your Express app instance and database pool
+import { createUserInputSchema } from './db:zodschemas.ts'; // import Zod schemas for validation
 
 describe("Portfolio3 Backend Integration Tests", () => {
 

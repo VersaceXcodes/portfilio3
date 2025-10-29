@@ -2,7 +2,8 @@ import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useAppStore } from '@/store/main';
 import axios from 'axios';
-import { Analytics } from '@/types/schema';
+import { Analytics } from '@/db/zodschemas';
+import { z } from 'zod';
 import { Link } from 'react-router-dom';
 
 const UV_AnalyticsDashboard: React.FC = () => {
@@ -24,14 +25,16 @@ const UV_AnalyticsDashboard: React.FC = () => {
     return response.data;
   };
 
-  const { data, isLoading, error } = useQuery({
-    queryKey: ['analyticsData', currentUser?.id],
-    queryFn: fetchAnalyticsData,
-    enabled: Boolean(currentUser?.id && authToken),
-    staleTime: 60000,
-    refetchOnWindowFocus: false,
-    retry: 1,
-  });
+  const { data, isLoading, error } = useQuery(
+    ['analyticsData', currentUser?.id],
+    fetchAnalyticsData,
+    {
+      enabled: Boolean(currentUser?.id && authToken),
+      staleTime: 60000,
+      refetchOnWindowFocus: false,
+      retry: 1,
+    }
+  );
 
   return (
     <>
@@ -66,7 +69,7 @@ const UV_AnalyticsDashboard: React.FC = () => {
                   <ul className="mt-2">
                     {Object.entries(data?.popular_projects || {}).map(([project, views]) => (
                       <li key={project} className="text-sm">
-                        {project}: {views?.length || 0} views
+                        {project}: {views.length} views
                       </li>
                     ))}
                   </ul>

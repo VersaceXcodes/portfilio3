@@ -16,8 +16,8 @@ const UV_ProfileSetup: React.FC = () => {
   const [socialLinks, setSocialLinks] = useState<Record<string, string> | null>({});
   const [error, setError] = useState<string | null>(null);
 
-  const saveProfileSetup = useMutation({
-    mutationFn: async () => {
+  const saveProfileSetup = useMutation(
+    async () => {
       if (!currentUser) {
         throw new Error('User not authenticated');
       }
@@ -42,14 +42,16 @@ const UV_ProfileSetup: React.FC = () => {
 
       return response.data;
     },
-    onSuccess: () => {
-      setError(null);
-      alert('Profile updated successfully!');
-    },
-    onError: (error: any) => {
-      setError(error?.response?.data?.message || 'Failed to update profile');
-    },
-  });
+    {
+      onSuccess: () => {
+        setError(null);
+        alert('Profile updated successfully!');
+      },
+      onError: (error: any) => {
+        setError(error?.response?.data?.message || 'Failed to update profile');
+      },
+    }
+  );
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -161,10 +163,10 @@ const UV_ProfileSetup: React.FC = () => {
           <div className="flex items-center justify-between mt-6">
             <button
               type="submit"
-              disabled={saveProfileSetup.isPending}
+              disabled={saveProfileSetup.isLoading}
               className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
             >
-              {saveProfileSetup.isPending ? 'Saving...' : 'Save Profile'}
+              {saveProfileSetup.isLoading ? 'Saving...' : 'Save Profile'}
             </button>
             <Link to="/portfolio/customize" className="text-blue-600 hover:text-blue-800 transition">
               Skip this step

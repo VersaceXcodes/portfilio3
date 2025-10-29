@@ -8,7 +8,6 @@ interface User {
   email: string;
   name: string;
   created_at: string;
-  social_media_links?: Record<string, string> | null;
 }
 
 interface AuthenticationState {
@@ -30,7 +29,6 @@ interface AppState {
   register_user: (email: string, password: string, name: string) => Promise<void>;
   initialize_auth: () => Promise<void>;
   update_user_profile: (userData: Partial<User>) => void;
-  clear_auth_error: () => void;
 }
 
 // Export as named export
@@ -70,7 +68,7 @@ export const useAppStore = create<AppState>()(
 
           const { user, token } = response.data;
 
-          set(() => ({
+          set((state) => ({
             authentication_state: {
               current_user: user,
               auth_token: token,
@@ -85,7 +83,7 @@ export const useAppStore = create<AppState>()(
           console.log(error);
           const errorMessage = error.response?.data?.message || error.message || 'Login failed';
 
-          set(() => ({
+          set((state) => ({
             authentication_state: {
               current_user: null,
               auth_token: null,
@@ -106,15 +104,13 @@ export const useAppStore = create<AppState>()(
         const token = authentication_state.auth_token;
 
         if (!token) {
-          set(() => ({
+          set((state) => ({
             authentication_state: {
-              current_user: null,
-              auth_token: null,
+              ...state.authentication_state,
               authentication_status: {
-                is_authenticated: false,
+                ...state.authentication_state.authentication_status,
                 is_loading: false,
               },
-              error_message: null,
             },
           }));
           return;
@@ -128,7 +124,7 @@ export const useAppStore = create<AppState>()(
 
           const { user } = response.data;
 
-          set(() => ({
+          set((state) => ({
             authentication_state: {
               current_user: user,
               auth_token: token,
@@ -139,8 +135,8 @@ export const useAppStore = create<AppState>()(
               error_message: null,
             },
           }));
-        } catch {
-          set(() => ({
+        } catch (error) {
+          set((state) => ({
             authentication_state: {
               current_user: null,
               auth_token: null,
@@ -155,7 +151,7 @@ export const useAppStore = create<AppState>()(
       },
 
       logout_user: () => {
-        set(() => ({
+        set((state) => ({
           authentication_state: {
             current_user: null,
             auth_token: null,
@@ -196,15 +192,6 @@ export const useAppStore = create<AppState>()(
               ...state.authentication_state.current_user,
               ...userData,
             } as User,
-          },
-        }));
-      },
-
-      clear_auth_error: () => {
-        set((state) => ({
-          authentication_state: {
-            ...state.authentication_state,
-            error_message: null,
           },
         }));
       },

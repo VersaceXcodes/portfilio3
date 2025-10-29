@@ -1,32 +1,14 @@
-import express, { Request, Response, NextFunction } from 'express';
+import express from 'express';
 import cors from 'cors';
 import * as dotenv from 'dotenv';
 import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
-import jwt, { JwtPayload } from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 import { Pool } from 'pg';
 import morgan from 'morgan';
 import multer from 'multer';
 import { v4 as uuidv4 } from 'uuid';
-
-interface UserPayload extends JwtPayload {
-  user_id: string;
-  email: string;
-}
-
-declare global {
-  namespace Express {
-    interface Request {
-      user?: {
-        user_id: string;
-        email: string;
-        name: string | null;
-        created_at: Date;
-      };
-    }
-  }
-}
 
 // Import Zod schemas
 import {
@@ -101,7 +83,7 @@ const pool = new Pool(
   DATABASE_URL
     ? { 
         connectionString: DATABASE_URL, 
-        ssl: { rejectUnauthorized: false } 
+        ssl: { require: true } 
       }
     : {
         host: PGHOST,
@@ -109,7 +91,7 @@ const pool = new Pool(
         user: PGUSER,
         password: PGPASSWORD,
         port: Number(PGPORT),
-        ssl: { rejectUnauthorized: false },
+        ssl: { require: true },
       }
 );
 
@@ -185,7 +167,7 @@ app.use('/uploads', express.static(uploadsDir));
 Authentication middleware for protected routes
 Validates JWT token and retrieves user information from database
 */
-const authenticateToken = async (req: Request, res: Response, next: NextFunction) => {
+const authenticateToken = async (req, res, next) => {
   try {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
@@ -194,7 +176,7 @@ const authenticateToken = async (req: Request, res: Response, next: NextFunction
       return res.status(401).json(createErrorResponse('Access token required', null, 'AUTH_TOKEN_MISSING'));
     }
 
-    const decoded = jwt.verify(token, JWT_SECRET) as UserPayload;
+    const decoded = jwt.verify(token, JWT_SECRET);
     const result = await pool.query('SELECT user_id, email, name, created_at FROM users WHERE user_id = $1', [decoded.user_id]);
     
     if (result.rows.length === 0) {
@@ -1376,6 +1358,6 @@ app.get(/^(?!\/api).*/, (req, res) => {
 export { app, pool };
 
 // Start the server
-app.listen(Number(port), '0.0.0.0', () => {
+app.listen(port, '0.0.0.0', () => {
   console.log(`Server running on port ${port} and listening on 0.0.0.0`);
 });

@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useAppStore } from '@/store/main';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
-import { projectSchema } from '@/types/schema';
+import { projectSchema } from '@/db/zodschemas';
+import { z } from 'zod';
 
 interface ProjectDetails {
   project_id: string;
@@ -42,14 +43,14 @@ const UV_ProjectDetail: React.FC = () => {
     return data.data;
   };
 
-  const { isLoading } = useQuery({
-    queryKey: ['projectDetails', project_id],
-    queryFn: fetchProjectDetails,
+  const { isLoading } = useQuery(['projectDetails', project_id], fetchProjectDetails, {
     enabled: !!project_id,
+    onSuccess: (data) => setProjectDetails(data),
+    onError: (error: any) => setError(error.message),
   });
 
-  const { mutate: saveProjectUpdates } = useMutation({
-    mutationFn: async (updatedDetails: ProjectDetails) => {
+  const { mutate: saveProjectUpdates } = useMutation(
+    async (updatedDetails: ProjectDetails) => {
       if (!project_id) throw new Error('Project ID is required');
       const response = await axios.patch(
         `${import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000'}/api/projects/${project_id}`,
@@ -63,11 +64,13 @@ const UV_ProjectDetail: React.FC = () => {
       );
       return response.data;
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['projectDetails', project_id] });
-    },
-    onError: (error: any) => setError(error.message),
-  });
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(['projectDetails', project_id]);
+      },
+      onError: (error: any) => setError(error.message),
+    }
+  );
 
   const handleSave = () => {
     try {

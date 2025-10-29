@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { useAppStore } from '@/store/main';
-
+import { z } from 'zod';
+import { blogPostSchema } from '@/DB:zodschemas:ts';
 import { Link } from 'react-router-dom';
 
 // Define TypeScript types for blog post
@@ -26,19 +27,19 @@ const UV_BlogUpdates: React.FC = () => {
   const [newBlogContent, setNewBlogContent] = useState('');
 
   // Fetch blog posts using react-query
-  const { data: blogPosts, isLoading, isError } = useQuery<BlogPost[], Error>({
-    queryKey: ['blog-posts', currentUser?.id],
-    queryFn: async () => {
+  const { data: blogPosts, isLoading, isError } = useQuery<BlogPost[], Error>(
+    ['blog-posts', currentUser?.id],
+    async () => {
       const response = await axios.get(`${API_URL}/users/${currentUser?.id}/blog-posts`, {
         headers: { Authorization: `Bearer ${authToken}` },
       });
-      return response.data;
+      return z.array(blogPostSchema).parse(response.data);
     }
-  });
+  );
 
   // Mutation to handle blog post creation/updating
-  const mutation = useMutation({
-    mutationFn: async (blogPost: BlogPost) => {
+  const mutation = useMutation(
+    async (blogPost: BlogPost) => {
       const response = await axios.post(
         `${API_URL}/users/${currentUser?.id}/blog-posts`,
         blogPost,
@@ -49,14 +50,16 @@ const UV_BlogUpdates: React.FC = () => {
           },
         }
       );
-      return response.data;
+      return z.object(blogPostSchema).parse(response.data);
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['blog-posts', currentUser?.id] });
-      setNewBlogTitle('');
-      setNewBlogContent('');
-    },
-  });
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(['blog-posts', currentUser?.id]);
+        setNewBlogTitle('');
+        setNewBlogContent('');
+      },
+    }
+  );
 
   const handleCreateOrUpdate = (e: React.FormEvent) => {
     e.preventDefault();
@@ -103,10 +106,10 @@ const UV_BlogUpdates: React.FC = () => {
           <div>
             <button
               type="submit"
-              disabled={mutation.isPending}
+              disabled={mutation.isLoading}
               className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors"
             >
-              {mutation.isPending ? 'Saving...' : 'Save Post'}
+              {mutation.isLoading ? 'Saving...' : 'Save Post'}
             </button>
           </div>
         </form>
